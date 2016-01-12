@@ -26,8 +26,8 @@ namespace coded
         [TestMethod]
         public void CodedUITestMethod1()
         {
-             mainPage main = new mainPage();
-             main.launchPage().goToRegistration();
+            mainPage main = new mainPage();
+            main.launchPage().goToRegistration().typeAndLoginClick("natali","user").typeAndNextClick("rondam@yandex.ru"); 
              //Console.WriteLine(link.ToString());
            // WebBrowser browser = new WebBrowser();
             //browser.Navigate(new Uri("http://s1-site06-stackteamc.rxnova.com/"));

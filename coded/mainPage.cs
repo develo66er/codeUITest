@@ -20,23 +20,9 @@ namespace coded.pages
             browser = BrowserWindow.Launch(new Uri(this.pageURI));
             return this;
         }
-        public HtmlDiv Div1() {
-            HtmlDiv div = new HtmlDiv(browser);
-            div.SearchProperties["class"] = "top-bar-wrapper";
-            return div;
-        }
-        public HtmlDiv Div2()
-        {
-            HtmlDiv div = new HtmlDiv(Div1());
-            div.SearchProperties["class"] = "top-bar clearfix centered-page";
-            return div;
-        }
         public HtmlHyperlink findHyperLink() {
-            HtmlHyperlink link = new HtmlHyperlink(Div2());
+            HtmlHyperlink link = new HtmlHyperlink(browser);
             link.SearchProperties["class"] = "toolbar-link";
-            
-           // UITestControlCollection collection = control.FindMatchingControls();
-            
             return link; 
         }
       
@@ -45,9 +31,13 @@ namespace coded.pages
                 return findHyperLink();
             }
         }
-        public void goToRegistration()
+        public userForm goToRegistration()
         {
+            userForm form;
             Mouse.Click(getLink);
+            browser.NavigateToUrl(new Uri("https://s1-site06-stackteamc.rxnova.com/en/Website-Sign-Up/Login-Form/"));
+            form = new userForm(browser);
+            return form;
         }
     }
 }
