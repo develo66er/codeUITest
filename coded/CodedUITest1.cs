@@ -27,11 +27,14 @@ namespace coded
         public void CodedUITestMethod1()
         {
             mainPage main = new mainPage();
-            main.launchPage().goToRegistration().typeAndLoginClick("natali","user").typeAndNextClick("rondam@yandex.ru"); 
-             //Console.WriteLine(link.ToString());
-           // WebBrowser browser = new WebBrowser();
-            //browser.Navigate(new Uri("http://s1-site06-stackteamc.rxnova.com/"));
-            
+            main.launchPage().goToRegistration().
+                typeAndLoginClick()
+                    .typeAndSignUpClick("anothermail@yandex.ru", "Natalia777", 
+                        "Chirca777", "myTestCompany",
+                            "Chisinau", "Chisinau", 
+                                "Bahamas","TestIsSuccessfull66","русский",
+                                    true,true,true);
+                   
         }
 
         #region Дополнительные атрибуты тестирования

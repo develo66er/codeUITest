@@ -60,6 +60,7 @@
     <Compile Include="CodedUITest1.cs" />
     <Compile Include="mainPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistrationForm.cs" />
     <Compile Include="userForm.cs" />
   </ItemGroup>
   <Choose>
