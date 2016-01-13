@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Windows.Input;
-using System.Windows.Forms;
-using System.Drawing;
+﻿
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.VisualStudio.TestTools.UITest.Extension;
-using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 using coded.pages;
-using Microsoft.VisualStudio.TestTools.UITesting.HtmlControls;
 
 namespace coded
 {
@@ -29,8 +21,8 @@ namespace coded
             mainPage main = new mainPage();
             main.launchPage().goToRegistration().
                 typeAndLoginClick()
-                    .typeAndSignUpClick("anothermail@yandex.ru", "Natalia777", 
-                        "Chirca777", "myTestCompany",
+                    .typeAndSignUpClick("anothermail4@yandex.ru", "Natalia777", 
+                        "Chirca888", "myTestCompany",
                             "Chisinau", "Chisinau", 
                                 "Bahamas","TestIsSuccessfull66","русский",
                                     true,true,true);

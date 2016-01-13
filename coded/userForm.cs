@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UITesting.HtmlControls;
 using System;
 
-namespace coded
+namespace coded.pages
 {
 
     public class userForm
@@ -24,7 +24,7 @@ namespace coded
             }
             
         }
-       
+      
         public addEmail typeAndLoginClick() {
             BrowserWindow.ClearCookies();
             BrowserWindow.ClearCache();

@@ -3,20 +3,31 @@ using Microsoft.VisualStudio.TestTools.UITesting.HtmlControls;
 using System;
 
 
-namespace coded
+namespace coded.pages
 {
     public class addEmail
     {
         BrowserWindow browser;
+       
         public addEmail(BrowserWindow aBrowser)
         {
             browser = aBrowser;
+        }
+        public HtmlDiv RootDiv
+        {
+            get
+            {
+
+                HtmlDiv div = new HtmlDiv(browser);
+                div.SearchProperties["id"] = "content";
+                return div;
+            }
+
         }
         public HtmlEdit getEmailEdit
         {
             get
             {
-
                 HtmlEdit edit = new HtmlEdit(browser);
                 edit.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlSignUp_txtEmail";
                 return edit;
@@ -25,7 +36,7 @@ namespace coded
         }
         public HtmlButton goNextPage()
         {
-            HtmlButton button = new HtmlButton(browser);
+            HtmlButton button = new HtmlButton(RootDiv);
             button.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlSignUp_submitButton";
             return button;
         }
@@ -42,7 +53,7 @@ namespace coded
             get
             {
 
-                HtmlEdit edit = new HtmlEdit(browser);
+                HtmlEdit edit = new HtmlEdit(RootDiv);
                 edit.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_txtFirstname";
                 return edit;
             }
@@ -53,7 +64,7 @@ namespace coded
             get
             {
 
-                HtmlEdit edit = new HtmlEdit(browser);
+                HtmlEdit edit = new HtmlEdit(RootDiv);
                 edit.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_txtSurname";
                 return edit;
             }
@@ -64,7 +75,7 @@ namespace coded
             get
             {
 
-                HtmlEdit edit = new HtmlEdit(browser);
+                HtmlEdit edit = new HtmlEdit(RootDiv);
                 edit.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_txtCompany";
                 return edit;
             }
@@ -75,7 +86,7 @@ namespace coded
             get
             {
 
-                HtmlEdit edit = new HtmlEdit(browser);
+                HtmlEdit edit = new HtmlEdit(RootDiv);
                 edit.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_txtCity";
                 return edit;
             }
@@ -86,7 +97,7 @@ namespace coded
             get
             {
 
-                HtmlEdit edit = new HtmlEdit(browser);
+                HtmlEdit edit = new HtmlEdit(RootDiv);
                 edit.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_txtCounty";
                 return edit;
             }
@@ -96,7 +107,7 @@ namespace coded
         {
             get
             {
-                HtmlComboBox combobox = new HtmlComboBox(browser);
+                HtmlComboBox combobox = new HtmlComboBox(RootDiv);
                 combobox.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_ddlCountries";
                 return combobox;
 
@@ -108,7 +119,7 @@ namespace coded
             get
             {
 
-                HtmlEdit edit = new HtmlEdit(browser);
+                HtmlEdit edit = new HtmlEdit(RootDiv);
                 edit.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_txtPassword";
                 return edit;
             }
@@ -119,7 +130,7 @@ namespace coded
             get
             {
 
-                HtmlEdit edit = new HtmlEdit(browser);
+                HtmlEdit edit = new HtmlEdit(RootDiv);
                 edit.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_txtConfirmPassword";
                 return edit;
             }
@@ -129,7 +140,7 @@ namespace coded
         {
             get
             {
-                HtmlComboBox combobox = new HtmlComboBox(browser);
+                HtmlComboBox combobox = new HtmlComboBox(RootDiv);
                 combobox.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_ddlLanguages";
                 return combobox;
 
@@ -140,7 +151,7 @@ namespace coded
         {
             get
             {
-                HtmlCheckBox check = new HtmlCheckBox(browser);
+                HtmlCheckBox check = new HtmlCheckBox(RootDiv);
                 check.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_chkOptOutShareDetailsWithAssociatedEvents";
                 return check;
 
@@ -151,7 +162,7 @@ namespace coded
         {
             get
             {
-                HtmlCheckBox check = new HtmlCheckBox(browser);
+                HtmlCheckBox check = new HtmlCheckBox(RootDiv);
                 check.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_UserPreferences_UserPreferenceRepeater_ctl00_UserPreference";
                 return check;
 
@@ -162,7 +173,7 @@ namespace coded
         {
             get
             {
-                HtmlCheckBox check = new HtmlCheckBox(browser);
+                HtmlCheckBox check = new HtmlCheckBox(RootDiv);
                 check.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_chkTAndC";
                 return check;
 
@@ -171,7 +182,7 @@ namespace coded
         }
         public HtmlButton toSignUp()
         {
-            HtmlButton button = new HtmlButton(browser);
+            HtmlButton button = new HtmlButton(RootDiv);
             button.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_submitButton";
             return button;
         }
@@ -183,14 +194,14 @@ namespace coded
             }
 
         }
+       
 
-        public void typeAndSignUpClick(string emailValue,string name,
+        public void typeAndSignUpClick(string emailValue, string name,
                                         string surname, string company,
-                                            string city, string province, 
+                                            string city, string province,
                                                 string country, string passwd,
-                                                    string language, Boolean getNews, 
-                                                        Boolean sharePersonal, Boolean agree)
-        {
+                                                    string language, Boolean getNews,
+                                                        Boolean sharePersonal, Boolean agree){
             BrowserWindow.ClearCookies();
             var mail = this.getEmailEdit;
             var uname = this.getFirstNameEdit;
@@ -206,23 +217,30 @@ namespace coded
             var usharePersonal = this.getSharePersonalCheck;
             var uagree = this.getAgreeCheck;
             mail.Text = emailValue;
-            
+
             Mouse.Click(nextPageButton);
-            uname.Text = name;
-            usurname.Text = surname;
-            ucompany.Text = name;
-            ucity.Text = city;
-            uprovince.Text = province;
-            ucountry.SelectedItem = country;
-            upasswd.Text = passwd;
-            uconfirmPasswd.Text = passwd;
-            ulang.SelectedItem = language;
-            ugetNews.Checked = getNews;
-            usharePersonal.Checked = sharePersonal;
-            uagree.Checked = agree;
-            Mouse.Click(SignUpButton);
+           
+            if (uname.Exists)
+            {
+                uname.Text = name;
+                usurname.Text = surname;
+                ucompany.Text = name;
+                ucity.Text = city;
+                uprovince.Text = province;
+                ucountry.SelectedItem = country;
+                upasswd.Text = passwd;
+                uconfirmPasswd.Text = passwd;
+                ulang.SelectedItem = language;
+                ugetNews.Checked = getNews;
+                usharePersonal.Checked = sharePersonal;
+                uagree.Checked = agree;
+                Mouse.Click(SignUpButton);
+            }
+            else {
+                browser.NavigateToUrl(new Uri("https://s1-site06-stackteamc.rxnova.com"));
+            }
+        }
         }
 
     }
 
-}
