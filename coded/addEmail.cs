@@ -217,9 +217,9 @@ namespace coded.pages
             var usharePersonal = this.getSharePersonalCheck;
             var uagree = this.getAgreeCheck;
             mail.Text = emailValue;
-
+            Boolean fetchMailResult = false;
             Mouse.Click(nextPageButton);
-           
+            POP3client client = new POP3client("pop3.yandex.ru", 995, true, "rondam888@yandex.ru", "asdfghjkl888");
             if (uname.Exists)
             {
                 uname.Text = name;
@@ -235,9 +235,19 @@ namespace coded.pages
                 usharePersonal.Checked = sharePersonal;
                 uagree.Checked = agree;
                 Mouse.Click(SignUpButton);
+               
+                do {
+                    fetchMailResult = client.fetchMessages();
+                } while (fetchMailResult==false);
             }
             else {
-                browser.NavigateToUrl(new Uri("https://s1-site06-stackteamc.rxnova.com"));
+                //browser.NavigateToUrl(new Uri("https://s1-site06-stackteamc.rxnova.com"));
+                do
+                {
+                    fetchMailResult = client.fetchMessages();
+                } while (fetchMailResult == false);
+                string link = client.getLink;
+                browser.NavigateToUrl(new Uri(link));
             }
         }
         }

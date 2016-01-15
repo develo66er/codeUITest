@@ -21,18 +21,18 @@ namespace coded
             mainPage main = new mainPage();
             main.launchPage().goToRegistration().
                 typeAndLoginClick()
-                    .typeAndSignUpClick("anothermail6@yandex.ru", "Natalia777", 
+                    .typeAndSignUpClick("rondam888@yandex.ru", "Natalia777", 
                         "Chirca888", "myTestCompany",
                             "Chisinau", "Chisinau", 
                                 "Bahamas","TestIsSuccessfull66","русский",
                                     true,true,true);
                    
         }
-        [TestMethod]
-        public void CodedUITestMethod2(){
-            POP3client client = new POP3client();
-            client.isLink("<a href=\"http://www.get.com/val?a=111&b=234\"></a>");
-        }
+        //[TestMethod]
+       // public void CodedUITestMethod2(){
+            //POP3client client = new POP3client();
+            //client.isLink("<a href=\"http://www.get.com/val?a=111&b=234\"></a>");
+        //}
 
         #region Дополнительные атрибуты тестирования
 
