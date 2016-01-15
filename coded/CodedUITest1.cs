@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using coded.pages;
-using System;
+
 
 namespace coded
 {
@@ -22,19 +22,14 @@ namespace coded
             mainPage main = new mainPage();
             main.launchPage().goToRegistration().
                 typeAndLoginClick()
-                    .typeAndSignUpClick("rondam888@yandex.ru", "Natalia777", 
+                    .typeAndSignUpClick("develo66er@yandex.ru", "NataliaSleifmahnn", 
                         "Chirca888", "myTestCompany",
                             "Chisinau", "Chisinau", 
-                                "Bahamas","TestIsSuccessfull66","русский",
-                                    true,true,true);
+                                "Bahamas","TestIsSuccessfullOK","русский",
+                                    true,true,true).typeAndLoginClick("NataliaSleifmahnn", "TestIsSuccessfullOK");
                    
         }
-        /*[TestMethod]
-        public void CodedUITestMethod2(){
-            POP3client client = new POP3client("pop3.yandex.ru", 995, true, "rondam888@yandex.ru", "asdfghjkl888");
-            string link = client.getTextOfLink("<a href=\" http://www.get.com/val?a=111&b=234\">http://www.get.com/val?a=111&b=234</a>");
-        }*/
-
+        
         #region Дополнительные атрибуты тестирования
 
         // При написании тестов можно использовать следующие дополнительные атрибуты:

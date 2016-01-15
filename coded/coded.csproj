@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="addEmail.cs" />
     <Compile Include="CodedUITest1.cs" />
+    <Compile Include="LoginUserForm.cs" />
     <Compile Include="mainPage.cs" />
     <Compile Include="POP3client.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

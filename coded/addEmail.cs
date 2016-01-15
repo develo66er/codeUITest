@@ -194,34 +194,35 @@ namespace coded.pages
             }
 
         }
-       
 
-        public void typeAndSignUpClick(string emailValue, string name,
+
+        public LoginUserForm typeAndSignUpClick(string emailValue, string name,
                                         string surname, string company,
                                             string city, string province,
                                                 string country, string passwd,
                                                     string language, Boolean getNews,
-                                                        Boolean sharePersonal, Boolean agree){
+                                                        Boolean sharePersonal, Boolean agree)
+        {
+            Boolean fetchMailResult = false;
+            string link;
             BrowserWindow.ClearCookies();
             var mail = this.getEmailEdit;
             var uname = this.getFirstNameEdit;
-            var usurname = this.getSurnameEdit;
-            var ucompany = this.getCompanyEdit;
-            var ucity = this.getCityTownEdit;
-            var uprovince = this.getStateProvinceEdit;
-            var ucountry = this.getCountryCombo;
-            var upasswd = this.getPasswdEdit;
-            var uconfirmPasswd = this.getConfirmPasswdEdit;
-            var ulang = this.getLanguageCombo;
-            var ugetNews = this.getGetNewsCheck;
-            var usharePersonal = this.getSharePersonalCheck;
-            var uagree = this.getAgreeCheck;
             mail.Text = emailValue;
-            Boolean fetchMailResult = false;
             Mouse.Click(nextPageButton);
-            POP3client client = new POP3client("pop3.yandex.ru", 995, true, "rondam888@yandex.ru", "asdfghjkl888");
-            if (uname.Exists)
-            {
+            POP3client client = new POP3client("pop3.yandex.ru", 995, true, "develo66er@yandex.ru", "zaxscdvf");
+            if (uname.Exists){
+                var usurname = this.getSurnameEdit;
+                var ucompany = this.getCompanyEdit;
+                var ucity = this.getCityTownEdit;
+                var uprovince = this.getStateProvinceEdit;
+                var ucountry = this.getCountryCombo;
+                var upasswd = this.getPasswdEdit;
+                var uconfirmPasswd = this.getConfirmPasswdEdit;
+                var ulang = this.getLanguageCombo;
+                var ugetNews = this.getGetNewsCheck;
+                var usharePersonal = this.getSharePersonalCheck;
+                var uagree = this.getAgreeCheck;
                 uname.Text = name;
                 usurname.Text = surname;
                 ucompany.Text = name;
@@ -235,23 +236,16 @@ namespace coded.pages
                 usharePersonal.Checked = sharePersonal;
                 uagree.Checked = agree;
                 Mouse.Click(SignUpButton);
-               
-                do {
-                    fetchMailResult = client.fetchAllMessages();
-                } while (fetchMailResult==false);
-            }
-            else {
-                //browser.NavigateToUrl(new Uri("https://s1-site06-stackteamc.rxnova.com"));
-                do
-                {
-                    fetchMailResult = client.fetchAllMessages();
-                } while (fetchMailResult == false);
-                string link = client.getLink;
-                Console.WriteLine("link received :" + link);
-                browser.NavigateToUrl(new Uri(link));
-            }
+             }
+             do{
+                fetchMailResult = client.fetchAllMessages();
+             } while (fetchMailResult == false);
+             link = client.getLink;
+             Console.WriteLine("link received :" + link);
+             browser.NavigateToUrl(new Uri(link));
+             return new LoginUserForm(browser);
         }
-        }
+     }
 
-    }
+  }
 

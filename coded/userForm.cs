@@ -8,6 +8,7 @@ namespace coded.pages
     public class userForm
     {
         BrowserWindow browser;
+        Boolean userRegistered;
         public userForm(BrowserWindow aBrowser) {
             browser = aBrowser;
         }
@@ -34,5 +35,6 @@ namespace coded.pages
             goToEmailPage = new addEmail(browser);
             return goToEmailPage;
         }
+        
     }
 }
