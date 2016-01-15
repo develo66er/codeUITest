@@ -13,25 +13,25 @@ namespace coded
     {
         string link { get; set; }
         List<string> seenUids;
-        const string mail = "WhiteLabel Site06 <noreply@showsite.rxnova.com>";
-        const string pattern = @"<a href=""(?<url>.*?)""></a>";
+        const string mail = "noreply@showsite.rxnova.com";
+        const string pattern = "(.\\s\\S)*(\\s\\s)?(?<url>https?:\\/\\/[-\\w;/?:@&+$=_\\|.!~*\\|'()\\[\\]%#,]+[\\w/#])(\\s\\s)?(.\\s\\S)*";
         const string patternOfDate = @"\w-\w[:](1)(?<month>.*?)/(?<day>.*?)/(?<year>.*?) \w*";
         string[] months = { "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct" ,"Nov", "Dec"};
-        Pop3Client client;
-        Match match;
-        RfcMailAddress from;
-        Message message;
         
-        MessagePart html;
-        
+        string html;
         string currentDate;
-        
-        string currentUid;
-        public POP3client(string host, int port, Boolean useSSL, string user, string pass) {
-            client = new Pop3Client();
-
-            client.Connect(host, port, useSSL);
-            client.Authenticate(user, pass);
+        string host;
+        int port;
+        Boolean useSSL;
+        string user;
+        string pass;
+        public POP3client(string ahost, int aport, Boolean auseSSL, string auser, string apass) {
+            //client = new Pop3Client();
+            host = ahost;
+            port = aport;
+            useSSL = auseSSL;
+            user = auser;
+            pass = apass;
             seenUids = new List<string>(0);
             DateTime time = System.DateTime.Now;
             convertCurTimeToStr(time);
@@ -42,60 +42,68 @@ namespace coded
         public void convertCurTimeToStr(DateTime time) {
             currentDate = String.Format("{0} {1}",
                months[time.Month-1],time.Year);
-        } 
-        public Boolean fetchMessages() {
-            string dateOfMessage;
-            MessageHeader header;
+        }
+        public Boolean fetchAllMessages() {
+            using (Pop3Client client = new Pop3Client()) {
+                List<Message> messages = new List<Message>();
+                client.Connect(host, port, useSSL);
+                client.Authenticate(user, pass);
            
-            List<string> uids;
-            
-           
-                uids = client.GetMessageUids();
-                for (int i = 0; i < uids.Count; i++) {
-                    header = client.GetMessageHeaders(i+1);
-                    from = header.From;
-                    Console.WriteLine(from);
-                    dateOfMessage = header.Date;
-                    Console.WriteLine(dateOfMessage);
-                    //Console.WriteLine(currentDate);
-                if (!dateOfMessage.Contains(currentDate)) continue;
-                    currentUid = uids[i];
-                    //Console.WriteLine(currentUid);
-                if (!seenUids.Contains(currentUid)) {
-                        //Console.WriteLine(from);
-                        getHeader(i+1);
-                        seenUids.Add(currentUid);
-                    Console.WriteLine("link:"+link);
+                int messagesCount = client.GetMessageCount();
+                Console.WriteLine(messagesCount);
+                for (int i =1; i <=messagesCount; i++){
+                    getheaders(i);
                     if (link != null) return true;
-                    }
-                
-                //client.Disconnect();
-            }
-            return false;
-        }
-        public void getHeader(int messageId)
-        {
-
-            Console.WriteLine(from);
-            if (from.HasValidMailAddress && from.Address.Equals(mail))
-                {
-                message = client.GetMessage(messageId);
-                //Console.WriteLine(message);
-                html = message.FindFirstHtmlVersion();
-                Console.WriteLine(html);
-                if (html != null)
-                    {
-                        link = getTextOfLink(html.ToString());
-                    }
                 }
-               
-        }
+                return false;
+            }
+                
 
+        }
+        public void getheaders(int messageNumber) {
+            using (Pop3Client client = new Pop3Client()){
+                Console.WriteLine("message number : "+messageNumber);
+                client.Connect(host, port, useSSL);
+                client.Authenticate(user, pass);
+                MessageHeader header = client.GetMessageHeaders(messageNumber);
+                
+                RfcMailAddress from = header.From;
+                Console.WriteLine("from : "+from);
+                
+                string dateOfMessage = header.Date;
+                if (dateOfMessage == null) dateOfMessage = currentDate;
+                Console.WriteLine("date :"+dateOfMessage);
+                if (!dateOfMessage.Contains(currentDate)) return;
+                if (from.HasValidMailAddress && from.Address.Equals(mail))
+                {
+                    Message message = client.GetMessage(messageNumber);
+                    
+                    MessagePart part0 = message.FindFirstPlainTextVersion();
+                    
+                    if (part0 != null) {
+                        
+                        html = part0.GetBodyAsText();
+                        
+                        if (html != null)
+                        {
+                            link = getTextOfLink(html);
+                        }
+                    }
+                        
+                  
+                }
+            }
+
+        }
+      
         public string getTextOfLink(string toCheck) {
-            match = Regex.Match(toCheck, pattern, RegexOptions.IgnoreCase| RegexOptions.Compiled,TimeSpan.FromSeconds(1));
-            if (match.Groups.Count == 0) return null;
-            Console.WriteLine("URL:"+match.Groups["url"]);
-            return match.Groups["url"].ToString();
+            List<string> listOfMatch = new List<string>();
+            MatchCollection matches = Regex.Matches(toCheck, pattern,RegexOptions.IgnoreCase|RegexOptions.Multiline);
+            if (matches.Count == 0) return null;
+            foreach (Match match in matches) {
+                listOfMatch.Add(match.Groups["url"].Value);
+            }
+            return listOfMatch[0];
         }  
         
     }

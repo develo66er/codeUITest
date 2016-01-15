@@ -237,16 +237,17 @@ namespace coded.pages
                 Mouse.Click(SignUpButton);
                
                 do {
-                    fetchMailResult = client.fetchMessages();
+                    fetchMailResult = client.fetchAllMessages();
                 } while (fetchMailResult==false);
             }
             else {
                 //browser.NavigateToUrl(new Uri("https://s1-site06-stackteamc.rxnova.com"));
                 do
                 {
-                    fetchMailResult = client.fetchMessages();
+                    fetchMailResult = client.fetchAllMessages();
                 } while (fetchMailResult == false);
                 string link = client.getLink;
+                Console.WriteLine("link received :" + link);
                 browser.NavigateToUrl(new Uri(link));
             }
         }
