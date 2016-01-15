@@ -205,12 +205,13 @@ namespace coded.pages
         {
             Boolean fetchMailResult = false;
             string link;
+            string username;
             BrowserWindow.ClearCookies();
             var mail = this.getEmailEdit;
             var uname = this.getFirstNameEdit;
             mail.Text = emailValue;
             Mouse.Click(nextPageButton);
-            POP3client client = new POP3client("pop3.yandex.ru", 995, true, "develo66er@yandex.ru", "zaxscdvf");
+            POP3client client = new POP3client("pop3.yandex.ru", 995, true, "Jan152016@yandex.ru", "notebook");
             if (uname.Exists){
                 var usurname = this.getSurnameEdit;
                 var ucompany = this.getCompanyEdit;

@@ -11,10 +11,10 @@ namespace coded
 {
     public class POP3client
     {
-        string link { get; set; }
+        string link = null;
         List<string> seenUids;
         const string mail = "noreply@showsite.rxnova.com";
-        const string pattern = "(.\\s\\S)*(\\s\\s)?(?<url>https?:\\/\\/[-\\w;/?:@&+$=_\\|.!~*\\|'()\\[\\]%#,]+[\\w/#])(\\s\\s)?(.\\s\\S)*";
+        const string pattern = "(.\\s\\S)*(\\s\\s)?(?<url>https?:\\/\\/[-\\w;/?:@&+$=_\\|.!~*\\|'()\\[\\]%#,]+[\\w/#])(\\s\\s)?(.\\s\\S)*";        
         const string patternOfDate = @"\w-\w[:](1)(?<month>.*?)/(?<day>.*?)/(?<year>.*?) \w*";
         string[] months = { "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct" ,"Nov", "Dec"};
         
@@ -38,7 +38,9 @@ namespace coded
             link = null;
         }
         public string getLink {
-            get{ return link; } }
+            get{ return link; }
+        }
+       
         public void convertCurTimeToStr(DateTime time) {
             currentDate = String.Format("{0} {1}",
                months[time.Month-1],time.Year);
@@ -86,7 +88,8 @@ namespace coded
                         
                         if (html != null)
                         {
-                            link = getTextOfLink(html);
+                            if(link == null) link = getTextOfLink(html);
+                           
                         }
                     }
                         
@@ -104,7 +107,8 @@ namespace coded
                 listOfMatch.Add(match.Groups["url"].Value);
             }
             return listOfMatch[0];
-        }  
+        }
+      
         
     }
 }
