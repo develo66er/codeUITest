@@ -2,22 +2,26 @@
 using Microsoft.VisualStudio.TestTools.UITesting.HtmlControls;
 using System;
 
-
+//-----------------------------------------------------------------------------
+//Страница с формой заполнения для создания нового пользователя 
+//-----------------------------------------------------------------------------
 namespace coded.pages
 {
     public class addEmail
     {
         BrowserWindow browser;
-       
-        public addEmail(BrowserWindow aBrowser)
+        string hashedEmail;
+        string email;
+        public addEmail(BrowserWindow aBrowser, string aHashedEmail, string aEmail)
         {
             browser = aBrowser;
+            hashedEmail = aHashedEmail;
+            email = aEmail;
         }
         public HtmlDiv RootDiv
         {
             get
             {
-
                 HtmlDiv div = new HtmlDiv(browser);
                 div.SearchProperties["id"] = "content";
                 return div;
@@ -52,7 +56,6 @@ namespace coded.pages
         {
             get
             {
-
                 HtmlEdit edit = new HtmlEdit(RootDiv);
                 edit.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_txtFirstname";
                 return edit;
@@ -63,7 +66,6 @@ namespace coded.pages
         {
             get
             {
-
                 HtmlEdit edit = new HtmlEdit(RootDiv);
                 edit.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_txtSurname";
                 return edit;
@@ -74,7 +76,6 @@ namespace coded.pages
         {
             get
             {
-
                 HtmlEdit edit = new HtmlEdit(RootDiv);
                 edit.SearchProperties["id"] = "ctl00_centreContentPlaceHolder_ctlCreateProfile_txtCompany";
                 return edit;
@@ -196,22 +197,21 @@ namespace coded.pages
         }
 
 
-        public LoginUserForm typeAndSignUpClick(string emailValue, string name,
+        public LoginUserForm typeAndSignUpClick(string name,
                                         string surname, string company,
                                             string city, string province,
                                                 string country, string passwd,
                                                     string language, Boolean getNews,
                                                         Boolean sharePersonal, Boolean agree)
         {
-            Boolean fetchMailResult = false;
-            string link;
-            string username;
+            
+            string fetchResult = null;
             BrowserWindow.ClearCookies();
+            BrowserWindow.ClearCache();
             var mail = this.getEmailEdit;
             var uname = this.getFirstNameEdit;
-            mail.Text = emailValue;
+            mail.Text = email;
             Mouse.Click(nextPageButton);
-            POP3client client = new POP3client("pop3.yandex.ru", 995, true, "Jan152016@yandex.ru", "notebook");
             if (uname.Exists){
                 var usurname = this.getSurnameEdit;
                 var ucompany = this.getCompanyEdit;
@@ -238,13 +238,23 @@ namespace coded.pages
                 uagree.Checked = agree;
                 Mouse.Click(SignUpButton);
              }
-             do{
-                fetchMailResult = client.fetchAllMessages();
-             } while (fetchMailResult == false);
-             link = client.getLink;
-             Console.WriteLine("link received :" + link);
-             browser.NavigateToUrl(new Uri(link));
-             return new LoginUserForm(browser);
+            int i = 0;
+            System.Threading.Thread.Sleep(150000);
+            do {
+                i++;
+                HTTPWrapper.extractLink(hashedEmail);
+                fetchResult = HTTPWrapper.getLink();
+            } while ((fetchResult==null)&&(i<400));
+            if(fetchResult == null) {
+                browser.NavigateToUrl(new Uri("https://s1-site06-stackteamc.rxnova.com/en/Website-Sign-Up/Login-Form/"));
+                return new LoginUserForm(browser);
+            }
+            else {
+                browser.NavigateToUrl(new Uri(fetchResult));
+                Console.WriteLine("link received :" + fetchResult);
+                return new LoginUserForm(browser,email);
+            }
+         
         }
      }
 

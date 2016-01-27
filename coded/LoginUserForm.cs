@@ -9,9 +9,15 @@ namespace coded.pages
     {
        
         BrowserWindow browser;
-        
-        public LoginUserForm( BrowserWindow abrowser) {
+        string email;
+        public LoginUserForm( BrowserWindow abrowser, string uEmail) {
             browser = abrowser;
+            email = uEmail;
+        }
+        public LoginUserForm(BrowserWindow abrowser)
+        {
+            browser = abrowser;
+            email = null;
         }
         public HtmlEdit getUserEdit
         {
@@ -47,15 +53,18 @@ namespace coded.pages
             }
 
         }
-        public void typeAndLoginClick(string username, string passwd)
+        public void typeAndLoginClick(string passwd)
         {
             BrowserWindow.ClearCookies();
             BrowserWindow.ClearCache();
-            var user = this.getUserEdit;
-            var pass = this.getPasswdEdit;
-            user.Text = username;
-            pass.Text = passwd;
-            Mouse.Click(loginButton);
+            if (email != null) {
+                var user = this.getUserEdit;
+                var pass = this.getPasswdEdit;
+                user.Text = email;
+                pass.Text = passwd;
+                Mouse.Click(loginButton);
+            }
+            
         }
 
     }

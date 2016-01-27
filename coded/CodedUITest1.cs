@@ -21,16 +21,16 @@ namespace coded
         {
             mainPage main = new mainPage();
             main.launchPage().goToRegistration().
-                typeAndLoginClick()
-                    .typeAndSignUpClick("Jan152016@yandex.ru", "rondam", 
+                typeAndLoginClick().changeEmailClick()
+                .goToAddEmail()
+                    .typeAndSignUpClick("rondam", 
                         "Chirca777", "myTestCompany",
                             "Chisinau", "Chisinau", 
-                                "Bahamas","Test7Test7Test7","русский",
-                                    true,true,true).typeAndLoginClick("Jan152016@yandex.ru","Test7Test7Test7");
+                                "Bahamas","URR7RAA7AAA7","русский",
+                                    true,true,true).typeAndLoginClick("URR7RAA7AAA7");
                    
         }
-        
-
+       
         #region Дополнительные атрибуты тестирования
 
         // При написании тестов можно использовать следующие дополнительные атрибуты:

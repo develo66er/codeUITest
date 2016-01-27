@@ -2,19 +2,22 @@
 using Microsoft.VisualStudio.TestTools.UITesting.HtmlControls;
 using System;
 
+//-----------------------------------------------------------------------------
+//главная страница с ссылкой для регистрации на которую необходимо нажать
+//-----------------------------------------------------------------------------
 namespace coded.pages
 {
     public class mainPage :UITestControl
     {
         protected string pageURI = "http://s1-site06-stackteamc.rxnova.com/";
         BrowserWindow browser;
-        
+        // загрузка URL в браузер
         public mainPage launchPage()
         {
-            //this.mainElement = (browser.CurrentDocumentWindow.GetChildren()[0] as UITestControl) as HtmlControl;
             browser = BrowserWindow.Launch(new Uri(this.pageURI));
             return this;
         }
+        //ищем ссылочку
         public HtmlHyperlink findHyperLink() {
             HtmlHyperlink link = new HtmlHyperlink(browser);
             link.SearchProperties["class"] = "toolbar-link";
@@ -26,6 +29,7 @@ namespace coded.pages
                 return findHyperLink();
             }
         }
+        //метод перехода на страницу для добавления нового пользователя
         public userForm goToRegistration()
         {
             userForm form;

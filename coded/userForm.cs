@@ -4,15 +4,16 @@ using System;
 
 namespace coded.pages
 {
-
+    //-----------------------------------------------------------------------------
+    //Страница с формой пользователя и ссылкой для создания нового пользователя
+    //-----------------------------------------------------------------------------
     public class userForm
     {
         BrowserWindow browser;
-        Boolean userRegistered;
         public userForm(BrowserWindow aBrowser) {
             browser = aBrowser;
         }
- 
+ // получение ссылки создания нового пользователя
         public HtmlHyperlink CreateOneHere()
         {
             HtmlHyperlink link = new HtmlHyperlink(browser);
@@ -25,15 +26,15 @@ namespace coded.pages
             }
             
         }
-      
-        public addEmail typeAndLoginClick() {
+  // метод перехода на страницу для создания нового почтового аккаунта   
+        public TempMailPage typeAndLoginClick() {
             BrowserWindow.ClearCookies();
             BrowserWindow.ClearCache();
-            addEmail goToEmailPage;
+            TempMailPage goToTempMailPage;
             Mouse.Click(getCreateOneHere);
-            browser.NavigateToUrl(new Uri("https://s1-site06-stackteamc.rxnova.com/en/Website-Sign-Up/"));
-            goToEmailPage = new addEmail(browser);
-            return goToEmailPage;
+            browser.NavigateToUrl(new Uri("http://temp-mail.org/"));
+            goToTempMailPage = new TempMailPage(browser);
+            return goToTempMailPage;
         }
         
     }
