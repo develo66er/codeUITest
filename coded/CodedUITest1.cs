@@ -27,7 +27,7 @@ namespace coded
                         "Chirca777", "myTestCompany",
                             "Chisinau", "Chisinau", 
                                 "Bahamas","URR7RAA7AAA7","русский",
-                                    true,true,true).typeAndLoginClick("URR7RAA7AAA7");
+                                    true,true,true).formComplete("URR7RAA7AAA7");
                    
         }
        

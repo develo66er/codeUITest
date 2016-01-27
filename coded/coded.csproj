@@ -69,7 +69,6 @@
     <Compile Include="changeMailPage.cs" />
     <Compile Include="CodedUITest1.cs" />
     <Compile Include="HTTPWrapper.cs" />
-    <Compile Include="LoginUserForm.cs" />
     <Compile Include="mainPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RCGenerator.cs" />

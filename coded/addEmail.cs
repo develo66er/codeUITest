@@ -197,7 +197,7 @@ namespace coded.pages
         }
 
 
-        public LoginUserForm typeAndSignUpClick(string name,
+        public userForm typeAndSignUpClick(string name,
                                         string surname, string company,
                                             string city, string province,
                                                 string country, string passwd,
@@ -247,12 +247,12 @@ namespace coded.pages
             } while ((fetchResult==null)&&(i<400));
             if(fetchResult == null) {
                 browser.NavigateToUrl(new Uri("https://s1-site06-stackteamc.rxnova.com/en/Website-Sign-Up/Login-Form/"));
-                return new LoginUserForm(browser);
+                return new userForm(browser);
             }
             else {
                 browser.NavigateToUrl(new Uri(fetchResult));
                 Console.WriteLine("link received :" + fetchResult);
-                return new LoginUserForm(browser,email);
+                return new userForm(browser,email);
             }
          
         }
