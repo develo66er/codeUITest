@@ -244,7 +244,7 @@ namespace coded.pages
                 i++;
                 HTTPWrapper.extractLink(hashedEmail);
                 fetchResult = HTTPWrapper.getLink();
-            } while ((fetchResult==null)&&(i<400));
+            } while ((fetchResult==null)&&(i<1000));
             if(fetchResult == null) {
                 browser.NavigateToUrl(new Uri("https://s1-site06-stackteamc.rxnova.com/en/Website-Sign-Up/Login-Form/"));
                 return new userForm(browser);

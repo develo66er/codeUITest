@@ -13,6 +13,7 @@ namespace coded.pages
         string email;
         public userForm(BrowserWindow aBrowser) {
             browser = aBrowser;
+            email = null;
         }
         public userForm(BrowserWindow abrowser, string uEmail)
         {
